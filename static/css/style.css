@@ -1,0 +1,470 @@
+/* ============================================================
+   Students' Portal — stylesheet
+   Palette: deep ink navy + warm ochre accent on warm paper.
+   Type:    Fraunces (display) + Inter (body).
+   ============================================================ */
+
+:root {
+  --ink:        #17233b;   /* primary dark */
+  --ink-soft:   #46567a;   /* secondary text */
+  --paper:      #f5f2ea;   /* page background */
+  --surface:    #ffffff;   /* cards, inputs */
+  --line:       #e4ddce;   /* hairline borders */
+  --accent:     #c07a1e;   /* ochre "seal" accent */
+  --accent-dk:  #9c6015;
+  --muted:      #7b8494;
+  --success:    #2f6f4f;
+  --danger:     #a5382b;
+  --radius:     14px;
+  --shadow:     0 12px 30px rgba(23, 35, 59, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main { flex: 1 0 auto; }
+
+a { color: inherit; }
+
+/* ---------- Navbar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--ink);
+  color: #f3efe6;
+}
+.navbar__inner {
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+}
+.brand__name {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -1.2px;
+}
+.brand__accent { color: var(--accent); }
+.navlinks { display: flex; gap: 26px; }
+.navlinks a {
+  text-decoration: none;
+  color: #cfd6e4;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.navlinks a:hover { color: #fff; border-color: var(--accent); }
+
+/* ---------- Flash messages ---------- */
+.flash-wrap { max-width: 1080px; margin: 18px auto 0; padding: 0 24px; }
+.flash {
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  border: 1px solid;
+}
+.flash--success { background: #eaf4ee; color: var(--success); border-color: #bfe0cd; }
+.flash--error   { background: #fbeceb; color: var(--danger);  border-color: #f0c9c4; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform .06s, background .15s, box-shadow .15s;
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--accent); color: #fff; box-shadow: 0 6px 16px rgba(192,122,30,.28); }
+.btn--primary:hover { background: var(--accent-dk); }
+.btn--ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn--ghost:hover { border-color: var(--accent); color: var(--accent-dk); }
+.btn--small { padding: 7px 15px; font-size: 13px; background: var(--ink); color: #fff; }
+.btn--small:hover { background: #24344f; }
+
+/* ---------- Eyebrow / shared headings ---------- */
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-dk);
+  margin: 0 0 10px;
+}
+
+/* ---------- Hero (landing) ---------- */
+.hero {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 72px 24px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+}
+.hero__title {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: clamp(38px, 6vw, 60px);
+  line-height: 1.03;
+  margin: 0 0 20px;
+  letter-spacing: -0.5px;
+}
+.hero__tagline {
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin: 0 0 30px;
+}
+
+/* Signature element: a decorative student "record card" */
+.hero__card { display: grid; place-items: center; }
+.record-card {
+  position: relative;
+  width: 260px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  transform: rotate(-3deg);
+}
+.record-card__photo {
+  width: 72px; height: 72px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #d8c39a, #b98f57);
+  margin-bottom: 18px;
+}
+.record-card__lines span {
+  display: block;
+  height: 9px;
+  border-radius: 5px;
+  background: #eee6d6;
+  margin-bottom: 11px;
+}
+.record-card__lines span:nth-child(1) { width: 85%; }
+.record-card__lines span:nth-child(2) { width: 65%; }
+.record-card__lines span:nth-child(3) { width: 78%; }
+.record-card__lines span:nth-child(4) { width: 50%; }
+.record-card__stamp {
+  position: absolute;
+  bottom: 18px; right: 18px;
+  transform: rotate(-8deg);
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  opacity: .85;
+}
+
+/* ---------- Form ---------- */
+.formwrap { max-width: 760px; margin: 0 auto; padding: 56px 24px 72px; }
+.formhead { margin-bottom: 30px; }
+.formhead h1 { font-family: "Fraunces", serif; font-weight: 600; font-size: 34px; margin: 0 0 6px; }
+.formhead__sub { color: var(--danger); margin: 0; }
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+.form__section-title {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: #f3efe6;
+  font-family: "Fraunces", serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+.field { display: flex; flex-direction: column; }
+.field--full { grid-column: 1 / -1; }
+.field--photo {
+  grid-column: 1 / -1;
+  width: calc((100% - 20px) / 2);
+}
+.field label, .label-as-text {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+.required-label::after {
+  content: " *";
+  color: var(--danger);
+}
+.opt { color: var(--muted); font-weight: 400; }
+.hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+
+input, select {
+  font-family: inherit;
+  font-size: 15px;
+  padding: 11px 13px;
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  background: #fdfcf9;
+  color: var(--ink);
+  transition: border-color .15s, box-shadow .15s;
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(192,122,30,.15);
+}
+select:disabled { background: #f0ece2; color: var(--muted); cursor: not-allowed; }
+input[type="file"] { padding: 9px; background: #fdfcf9; }
+
+.radios { display: flex; gap: 22px; }
+.radio { display: flex; align-items: center; gap: 8px; font-weight: 500; cursor: pointer; }
+.radio input { width: auto; }
+
+.form__actions { margin-top: 6px; }
+
+/* ---------- Students table ---------- */
+.tablewrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 72px; }
+.tablehead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.tablehead h1 { font-family: "Fraunces", serif; font-weight: 600; font-size: 24px; margin: 0; }
+
+.count { color: var(--muted); font-size: 20px; font-weight: 400; }
+
+/* Search box above the table */
+.table-tools {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.15fr auto;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 14px;
+}
+#table-search,
+#aggregate-filter {
+  width: 100%;
+  font-family: inherit;
+  font-size: 15px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+#table-search:focus,
+#aggregate-filter:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(192,122,30,.15);
+}
+
+.table-scroll { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  min-width: 640px;
+}
+.table th, .table td {
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.table thead th {
+  background: #efe9dc;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-soft);
+}
+.table tbody tr:hover { background: #faf7f0; }
+.table tbody tr:last-child td { border-bottom: none; }
+.thumb {
+  width: 44px; height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+/* ---------- Status badges ---------- */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+.badge--pending  { background: #f6edd6; color: #8a6516; }
+.badge--admitted { background: #e0f0e6; color: var(--success); }
+.badge--rejected { background: #f7dedb; color: var(--danger); }
+
+/* ---------- Empty state ---------- */
+.empty {
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 60px 24px;
+}
+.empty p { color: var(--ink-soft); font-size: 18px; margin: 0 0 18px; }
+
+/* ---------- Student details ---------- */
+.detailwrap { max-width: 1180px; margin: 0 auto; padding: 28px 32px 52px; }
+.back { display: inline-block; margin-bottom: 18px; text-decoration: none; color: var(--accent-dk); font-weight: 600; }
+.back:hover { text-decoration: underline; }
+
+.student-profile {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 28px 22px;
+}
+.student-profile__card {
+  grid-row: span 1;
+  padding: 12px 12px 24px;
+  background: #d28f5b;
+  text-align: center;
+  color: #fff;
+}
+.student-profile__photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #fff;
+  margin-bottom: 18px;
+}
+.student-profile__name {
+  margin: 0 0 6px;
+  font-family: "Fraunces", serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+.student-profile__personal { min-width: 0; }
+.student-profile__section { grid-column: 1 / -1; }
+.detail-section-title {
+  margin: 0 0 24px;
+  padding: 5px 10px;
+  background: #dceef5;
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+.personal-details,
+.detail-row dl {
+  margin: 0;
+}
+.personal-details {
+  display: grid;
+  gap: 18px;
+  padding: 4px 18px;
+}
+.personal-details > div,
+.detail-row dl > div {
+  display: flex;
+  gap: 5px;
+}
+.personal-details dt,
+.detail-row dt {
+  font-weight: 600;
+  color: var(--muted);
+}
+.personal-details dd,
+.detail-row dd { margin: 0; color: var(--muted); font-weight: 500; }
+.detail-row { padding: 0 30px; }
+.detail-row--two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.detail-row--academic {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr .8fr 1.2fr;
+  gap: 24px;
+  align-items: start;
+}
+.status-form { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; }
+.status-form label { color: var(--muted); font-weight: 600; white-space: nowrap; }
+.status-form select { width: 100%; }
+.status-msg { grid-column: 1 / -1; display: block; min-height: 16px; font-size: 12px; }
+.status-msg.ok  { color: var(--success); }
+.status-msg.err { color: var(--danger); }
+
+/* ---------- Footer ---------- */
+.footer {
+  flex-shrink: 0;
+  background: var(--ink);
+  color: #fff;
+  text-align: center;
+  padding: 22px 24px;
+  font-size: 14px;
+}
+.footer p { margin: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 780px) {
+  .hero { grid-template-columns: 1fr; padding: 48px 24px; }
+  .hero__card { order: -1; }
+  .form { grid-template-columns: 1fr; }
+  .field--photo { width: 100%; }
+  .detailwrap { padding-inline: 20px; }
+  .student-profile { grid-template-columns: 1fr; }
+  .student-profile__card { grid-row: auto; width: min(100%, 260px); }
+  .student-profile__section { grid-column: 1; }
+  .detail-row--two,
+  .detail-row--academic { grid-template-columns: 1fr; }
+  .detail-row { padding-inline: 12px; }
+  .tablehead { align-items: flex-start; flex-direction: column; }
+  .table-tools { grid-template-columns: 1fr; }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}

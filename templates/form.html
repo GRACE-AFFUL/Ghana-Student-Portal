@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Apply Students' Portal{% endblock %}
+
+{% block content %}
+<!-- ===================== FORM SECTION ===================== -->
+<section class="formwrap">
+  <div class="formhead">
+    <h1>Student Portal Form</h1>
+    <p class="formhead__sub">Please fill in all required information</p>
+  </div>
+
+  <!--
+    enctype="multipart/form-data" is required so the file upload is sent.
+    The form posts to /submit where the server saves it.
+  -->
+  <form id="portal-form" class="form" action="{{ url_for('submit') }}"
+        method="POST" enctype="multipart/form-data" novalidate>
+
+    <h2 class="form__section-title">Personal Information</h2>
+
+    <!-- Photo upload -->
+    <div class="field field--photo">
+      <label for="photo" class="required-label">Passport photo</label>
+      <input type="file" id="photo" name="photo" accept="image/png,image/jpeg,image/gif,image/webp" required>
+      <small class="hint">PNG, JPG, GIF or WEBP, up to 5&nbsp;MB.</small>
+    </div>
+
+    <!-- Names -->
+    <div class="field">
+      <label for="first_name" class="required-label">First name</label>
+      <input type="text" id="first_name" name="first_name" required>
+    </div>
+    <div class="field">
+      <label for="middle_name">Middle name <span class="opt">(optional)</span></label>
+      <input type="text" id="middle_name" name="middle_name">
+    </div>
+    <div class="field">
+      <label for="last_name" class="required-label">Last name</label>
+      <input type="text" id="last_name" name="last_name" required>
+    </div>
+
+    <!-- Email + date of birth -->
+    <div class="field">
+      <label for="email" class="required-label">Email address</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="field">
+      <label for="date_of_birth" class="required-label">Date of birth</label>
+      <input type="date" id="date_of_birth" name="date_of_birth" required>
+    </div>
+
+    <!-- Gender (radio buttons) -->
+    <div class="field">
+      <span class="label-as-text required-label">Gender</span>
+      <div class="radios">
+        <label class="radio">
+          <input type="radio" name="gender" value="Male" required> Male
+        </label>
+        <label class="radio">
+          <input type="radio" name="gender" value="Female"> Female
+        </label>
+      </div>
+    </div>
+
+    <!-- Phone + address -->
+    <div class="field">
+      <label for="phone" class="required-label">Phone number</label>
+      <input type="tel" id="phone" name="phone" inputmode="numeric"
+             placeholder="e.g. 024 123 4567" pattern="[0-9+ ]{7,15}" required>
+    </div>
+    <div class="field">
+      <label for="address" class="required-label">Home address</label>
+      <input type="text" id="address" name="address" required>
+    </div>
+
+    <!-- Dependent selects: District options depend on the chosen Region.
+         Both are populated asynchronously by static/js/form.js from
+         /api/regions and /api/districts/<region>. -->
+    <div class="field">
+      <label for="region" class="required-label">Region of origin</label>
+      <select id="region" name="region" required>
+        <option value="">Loading regions…</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="district" class="required-label">District</label>
+      <select id="district" name="district" required disabled>
+        <option value="">Select a region first</option>
+      </select>
+    </div>
+
+    <!-- Next of kin + WASSCE aggregate (number input).
+         In WASSCE grading the best 6 subjects total 6 (all A1s)
+         up to 54 (all F9s) — lower is better. -->
+    <div class="field">
+      <label for="next_of_kin" class="required-label">Next of kin</label>
+      <input type="text" id="next_of_kin" name="next_of_kin" required>
+    </div>
+
+    <h2 class="form__section-title">Academic Related Information</h2>
+
+    <div class="field">
+      <label for="wassce_aggregate" class="required-label">WASSCE aggregate</label>
+      <input type="number" id="wassce_aggregate" name="wassce_aggregate"
+             min="6" max="54" placeholder="6 (best) – 54" required>
+    </div>
+
+    <!-- Submit -->
+    <div class="field field--full form__actions">
+      <button type="submit" class="btn btn--primary">Submit application</button>
+    </div>
+  </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<!-- Page-specific JavaScript, kept in its own file -->
+<script src="{{ url_for('static', filename='js/form.js') }}"></script>
+{% endblock %}

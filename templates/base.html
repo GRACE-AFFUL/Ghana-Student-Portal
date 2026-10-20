@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Registry — Students' Portal{% endblock %}</title>
+
+  <!-- Google Fonts: Fraunces (display) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Our stylesheet (kept in its own file per the brief) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- ===================== TOP NAVBAR ===================== -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <!-- Logo doubles as a link back to the landing page -->
+      <a class="brand" href="{{ url_for('landing') }}">
+        <span class="brand__name">star<span class="brand__accent">t</span>ocode</span>
+      </a>
+
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="{{ url_for('landing') }}">Home</a>
+        <a href="{{ url_for('form') }}">Apply</a>
+        <a href="{{ url_for('students') }}">Students</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== FLASH MESSAGES ===================== -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-wrap">
+        {% for category, message in messages %}
+          <div class="flash flash--{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- ===================== PAGE CONTENT ===================== -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <p>All rights reserved &copy; Startocode {{ current_year }}</p>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

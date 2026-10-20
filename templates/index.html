@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Registry Students' Portal{% endblock %}
+
+{% block content %}
+<!-- ===================== INTRO / HERO SECTION ===================== -->
+<section class="hero">
+  <div class="hero__text">
+    <h1 class="hero__title">Student Main Portal</h1>
+    <p class="hero__tagline">
+      Register on the Startocode Student Portal and join us today for your online courses.
+    </p>
+    <!-- Call-to-action: sends the user to the portal form -->
+    <a class="btn btn--primary" href="{{ url_for('form') }}">Get started &rarr;</a>
+  </div>
+</section>
+{% endblock %}

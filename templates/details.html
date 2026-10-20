@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ student['first_name'] }} {{ student['last_name'] }} Portal{% endblock %}
+
+{% block content %}
+<section class="detailwrap">
+  <a class="back" href="{{ url_for('students') }}">Back to all students</a>
+
+  <div class="student-profile">
+    <aside class="student-profile__card">
+      {% set photo_url = url_for('static', filename='uploads/' ~ student['image_filename']) %}
+      {% if student['image_filename'].lower().endswith('.pdf') %}
+      <a class="btn btn--small" href="{{ photo_url }}" target="_blank" rel="noopener">View uploaded PDF</a>
+      {% else %}
+      <img class="student-profile__photo" src="{{ photo_url }}"
+           alt="Photo of {{ student['first_name'] }}">
+      {% endif %}
+      <h1 class="student-profile__name">
+        {{ student['first_name'] }} {{ student['last_name'] }}
+      </h1>
+      <span class="badge badge--{{ student['admission_status']|lower }}" id="status-badge">
+        {{ student['admission_status'] }}
+      </span>
+    </aside>
+
+    <section class="student-profile__personal" aria-labelledby="personal-heading">
+      <h2 class="detail-section-title" id="personal-heading">Personal Information</h2>
+      <dl class="personal-details">
+        <div><dt>Email:</dt><dd>{{ student['email'] }}</dd></div>
+        <div><dt>Gender:</dt><dd>{{ student['gender'] }}</dd></div>
+        <div><dt>Phone Number:</dt><dd>{{ student['phone'] }}</dd></div>
+        <div><dt>Date Of Birth:</dt><dd>{{ student['date_of_birth'] }}</dd></div>
+        <div><dt>Address:</dt><dd>{{ student['address'] }}</dd></div>
+      </dl>
+    </section>
+
+    <section class="student-profile__section" aria-labelledby="other-heading">
+      <h2 class="detail-section-title" id="other-heading">Other Information</h2>
+      <dl class="detail-row detail-row--two">
+        <div><dt>Region Of Origin:</dt><dd>{{ student['region'] }}</dd></div>
+        <div><dt>District:</dt><dd>{{ student['district'] }}</dd></div>
+      </dl>
+    </section>
+
+    <section class="student-profile__section" aria-labelledby="academic-heading">
+      <h2 class="detail-section-title" id="academic-heading">Academics Related Information</h2>
+      <div class="detail-row detail-row--academic">
+        <dl><div><dt>Next Of Kin:</dt><dd>{{ student['next_of_kin'] }}</dd></div></dl>
+        <dl><div><dt>WASSCE Aggregate:</dt><dd>{{ student['wassce_aggregate'] }}</dd></div></dl>
+        <dl><div><dt>Status:</dt><dd>{{ student['admission_status'] }}</dd></div></dl>
+        <div class="status-form">
+          <label for="status-select">Change Status:</label>
+          <select id="status-select" data-id="{{ student['id'] }}">
+            {% for option in ['Pending', 'Admitted', 'Rejected'] %}
+            <option value="{{ option }}"
+              {% if option == student['admission_status'] %}selected{% endif %}>
+              {{ option }}
+            </option>
+            {% endfor %}
+          </select>
+          <small class="status-msg" id="status-msg"></small>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/details.js') }}"></script>
+{% endblock %}

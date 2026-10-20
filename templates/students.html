@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Students Portal{% endblock %}
+
+{% block content %}
+<section class="tablewrap">
+  <div class="tablehead">
+    <h1>Info| All students record table <span class="count">({{ students|length }})</span></h1>
+  </div>
+
+  {% if students %}
+  <div class="table-tools">
+    <input type="search" id="table-search" placeholder="Search record by name"
+           aria-label="Search students by name">
+    <select id="status-filter" aria-label="Filter by admission status">
+      <option value="">Select admission status</option>
+      <option value="Pending">Pending</option>
+      <option value="Admitted">Admitted</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+    <select id="gender-filter" aria-label="Filter by gender">
+      <option value="">Select gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+    <input type="number" id="aggregate-filter" min="6" max="54"
+           placeholder="Enter WASSCE aggregate"
+           aria-label="Filter by WASSCE aggregate">
+    <button type="button" class="btn btn--primary" id="table-filter-button">Search</button>
+  </div>
+
+  <div class="table-scroll">
+    <table class="table" id="students-table">
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>WASSCE Aggregate</th>
+          <th>Admission Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        <tr data-name="{{ s['first_name'] }} {{ s['middle_name'] or '' }} {{ s['last_name'] }}"
+            data-gender="{{ s['gender'] }}"
+            data-aggregate="{{ s['wassce_aggregate'] }}"
+            data-status="{{ s['admission_status'] }}">
+          <td>{{ loop.index }}</td>
+          <td>{{ s['first_name'] }} {{ s['last_name'] }}</td>
+          <td>{{ s['gender'] }}</td>
+          <td>{{ s['wassce_aggregate'] }}</td>
+          <td>
+            <span class="badge badge--{{ s['admission_status']|lower }}">
+              {{ s['admission_status'] }}
+            </span>
+          </td>
+          <td>
+            <a class="btn btn--small"
+               href="{{ url_for('student_details', student_id=s['id']) }}">View</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty">
+    <p>No students yet.</p>
+    <a class="btn btn--primary" href="{{ url_for('form') }}">Add the first one</a>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}
