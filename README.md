@@ -10,6 +10,21 @@ The Region of Origin and District select boxes are populated asynchronously
 with **Ghana's 16 administrative regions and their 261 districts (MMDAs)**.
 Choosing a region loads only that region's districts.
 
+
+## Application Screenshots
+
+### Home Page
+![Student Portal Home Page](screenshots/home.png)
+
+### Student Registration
+![Student Registration Form](screenshots/registration.png)
+
+### Student Directory
+![Student Directory Showing Admission Status](screenshots/students.png)
+
+### Student Details and Admission Status
+![Student Details Page](screenshots/details.png)
+  
 ## Features (mapped to the brief)
 
 | Requirement | Where it lives |
